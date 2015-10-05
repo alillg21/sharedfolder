@@ -1,0 +1,4 @@
+---- DemoRegistrasi Matches (3 in 3 files) ----
+Main.c (src):				DemoRegistrasi();  
+Registrasi.c (src):void DemoRegistrasi(void) 
+Registrasi.h (inc):void DemoRegistrasi(void);

@@ -1,0 +1,90 @@
+PLM编号：SP-00041513
+******************************************************************************
+File:		libdev
+Version:	KF352_libdev_r112_2014-06-06_release
+Created By:	Chaoping Tu
+Release Date:	2014-06-06
+Change Log：
+1.修改libdev icf文件。重新分配RAM
+名称			起始地址	结束地址	空间大小	备注
+libdev RAM		0x1FFF0000	0x1FFF3FFF	16K		底层使用
+stack&heap&kernel data	0x20008000	0x2000FFFF	32K		应用的堆栈以及内核数据所用,其中栈空间10K，堆和内核数据所分空间22K
+APP RAM			0x1FFF4000	0x20007FFF	80K		应用使用
+
+截止目前为止，已经实现的模块如下：
+dev_file、dev_flash、dev_iccard、dev_key、dev_lcd、dev_mif、dev_serial、dev_sys、dev_sysdev、dev_Voice、dev_wnet
+******************************************************************************
+File:		libdev
+Version:	KF352_libdev_r109_2014-05-29_release
+Created By:	Chaoping Tu
+Release Date:	2014-05-29
+Change Log：
+1.优化dev_FileOpen函数
+2.优化dev_printf函数,可用dev_printf打印调试信息，需要调用 dev_PortOpen函数打开串口5
+3.实现软件复位函数dev_SysReset
+截止目前为止，已经实现的模块如下：
+dev_file、dev_flash、dev_iccard、dev_key、dev_lcd、dev_mif、dev_serial、dev_sys、dev_sysdev、dev_Voice、dev_wnet
+******************************************************************************
+File:		libdev
+Version:	KF352_libdev_r105_2014-05-15_release
+Created By:	Chaoping Tu
+Release Date:	2014-05-15
+Change Log：
+1、增加接口函数dev_FileCreateDir()，不支持多级目录创建
+2、函数dev_FileFreeSpace()返回值单位更改为KB
+******************************************************************************
+File:		libdev
+Version:	KF352_libdev_r101_2014-04-28_release
+Created By:	Chaoping Tu
+Release Date:	2014-04-28
+Change Log：
+1、优化非接
+2、优化语音接口(按文档提供接口)
+3、底层屏蔽打印调试信息，串口5供应用使用
+******************************************************************************
+File:		libdev
+Version:	KF352_libdev_r90_2014-04-21
+Created By:	Chaoping Tu
+Release Date:	2014-04-21
+Change Log：
+1、底层通过判断是否为jlink调试，在jlink调试时按键和LCD背光函数为空(硬件上需要在JTAG_TRST处加一个下拉电阻，硬件上的修改请找王鹏)
+2、增加dev_iccard接口
+3、优化u盘挂载/卸载函数
+注：libdev下载地址更改为：0x25000(原为0x30000)
+******************************************************************************
+File:		libdev
+Version:	KF352_libdev_r80_2014-04-10
+Created By:	Chaoping Tu
+Release Date:	2014-04-10
+Change Log：
+1、增加非接接口
+2、增加GPRS接口
+******************************************************************************
+File:		libdev
+Version:	KF352_libdev_r75_2014-04-07
+Created By:	Chaoping Tu
+Release Date:	2014-04-07
+Change Log：
+1、修复串口接收超时无效的bug
+******************************************************************************
+File:		libdev
+Version:	KF352_libdev_r2_2014-04-03
+Created By:	Chaoping Tu
+Release Date:	2014-04-03
+Change Log：
+1、定义非接函数，暂未实现，返回空
+2、底层未初始化键盘背光和LCD背光，方便应用使用jlink调试。如果应用调用了dev_KbLight或dev_LcdLight。就不能使用jlink调试了。
+******************************************************************************
+File:		libdev
+Version:	KF352_libdev_r1_2014-04-01
+Created By:	Chaoping Tu
+Release Date:	2014-04-01
+Change Log：
+1、增加了串口，LED，2.4G模块，加速度传感器，蜂鸣器，语音芯片接口函数
+******************************************************************************
+File:		libdev
+Version:	KF352_libdev_r0_2014-03-19
+Created By:	Chaoping Tu
+Release Date:	2014-03-19
+Change Log：
+1,实现了dev_file.h,dev_key.h,dev_lcd.h,dev_sys.h中函数的接口函数

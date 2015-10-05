@@ -1,0 +1,7 @@
+---- initialize Matches (6 in 4 files) ----
+Perso.c (src):	if(!initialize())
+Scard.c (src):BOOL initialize()
+Scard.c (src):	if (caseType == 1)    // If card data is to be erased before writing new data. Re-initialize card values to $00    
+Scard.h (inc):BOOL initialize();    
+Transaksi.c (src):	if(!initialize())
+Transaksi.c (src):	if(!initialize())

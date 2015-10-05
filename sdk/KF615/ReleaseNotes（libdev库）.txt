@@ -1,0 +1,181 @@
+BM-libdev
+
+适用机型：KF915 KF615
+------------------------------------------------------------------------------------------------
+发布日期: 2014-10-29 
+版本: r478
+发布者:贺盛修
+1.Unify gps reference of ublox6 and mc1010
+
+------------------------------------------------------------------------------------------------
+发布日期: 2014-10-28 
+版本: r477
+发布者:贺盛修
+1.dev_file.c add 0777 to dev_FileOpen
+2.add dev_WnetUdpConnect add dev_SysGpsGetMsg
+3.wnet-improve adaptability of dev_WnetInit and fix a bug
+4.gps-improve the precision of latitude and longtitude
+5.WBG-add cmd mode "gps-monitor info"
+6.修改摄像头二维码扫描取景框大小，100*100 修改成120*120
+------------------------------------------------------------------------------------------------
+发布日期: 2014-09-22 
+版本: r423
+发布者:贺盛修
+1.dev_voice.h add void dev_SoundPlay(char *filename, int nonblock);
+2.dev_wnet.h add int dev_WnetFirmareUpgrade(char *fwName);
+------------------------------------------------------------------------------------------------
+发布日期: 2014-09-04 
+版本: r401
+发布者:贺盛修
+1.修改二维码扫描时的方框
+2.修改dev_camera.c
+------------------------------------------------------------------------------------------------
+发布日期: 2014-09-04 
+版本: r396
+发布者:贺盛修
+1.add lowpower control for modem
+
+------------------------------------------------------------------------------------------------
+发布日期: 2014-09-01 
+版本: r386
+发布者:贺盛修
+
+修改点：
+1.dev_sysdev.c增加2.4G open/close函数
+2.add"-r"or"-d" to s2bl version
+3.add dev_NetShutdown
+4.修改pingpad库，增加支持8字节密钥长度
+5.修改PED初始化返回3的错误，另外在输PIN时关闭键盘；修改PED PIN输入部分将卡号转换为PAN
+------------------------------------------------------------------------------------------------
+发布日期: 2014-08-11 
+版本: r356
+发布者:贺盛修
+
+修改点：
+1.dev_net.c wifi add dev_system*
+2.Modified SIM CARD Operation,add Wnet Support for KF351C
+3.dev_sys.h add 
+    int dev_SysUpdateStart(unsigned int n);
+    int dev_SysUpdateWrite(int fd, char *data);
+    void dev_SysUpdateEnd(int fd);
+    int dev_SysUpdateFromFile(unsigned int n, const char *filename);
+4.1)bluetooth apply obex_bt programe to transfer file, and delete obex_test source code in libdev project.
+  2)clear a bug about wcdma over VCP when powerup it.
+  3) modify bluetooth testing code to clear a bug.
+  4) add bt/wifi radio control with gpio 
+5.修改DataOut返回值，使其不包含sw1和sw2
+6.add kf351 voice
+------------------------------------------------------------------------------------------------
+发布日期: 2014-07-30 
+版本: r330
+发布者:贺盛修
+
+修改点：
+modified enquiry-time constant of register network,from 300sec to 60sec
+dev_net.c
+
+------------------------------------------------------------------------------------------------
+发布日期: 2014-07-22 
+版本: r324
+发布者:贺盛修
+
+修改点：
+* Function		: dev_CameraSetMode
+* Description	: 设置摄像头模式，默认为普通模式，假如需要做扫描，
+					需先调用此函数进行模式设置
+* Input Para	: 	mode	0	普通模式
+						1	一维码模式
+						2	二维码模式
+* Output Para	: 
+* Return Value	: 
+int dev_CameraSetMode(int Mode);
+
+------------------------------------------------------------------------------------------------
+发布日期: 2014-07-22 
+版本: r320
+发布者:贺盛修
+
+修改点：
+修改摄像头接口，支持扫描二维码功能
+
+------------------------------------------------------------------------------------------------
+发布日期: 2014-07-14 
+版本: r311
+发布者:贺盛修
+
+修改点：
+dev_wnet.h
+增加 int dev_WnetUssdCmd(int n, const void *sendstr, int dcs, int *m, void *recvstr, int *recvdcs);
+修改 int dev_WnetSelectModule(int slotNo);
+PED部分增加AES算法接口
+
+------------------------------------------------------------------------------------------------
+发布日期: 2014-07-01 
+版本: r303
+发布者:贺盛修
+
+修改点：
+dev_sysdev.h增加
+int dev_LedArrayOpen(void);
+void dev_LedArrayClose(void);
+int dev_LedArrayGetDigit(void);
+void dev_LedArrayClear(void);
+int dev_LedArrayOn(char* LedData);
+
+------------------------------------------------------------------------------------------------
+发布日期: 2014-05-22 
+版本: r276
+发布者:贺盛修
+
+修改点：
+1.修改int dev_SysReadConfig(CONFIG_INFO *ConfigInfo)无配置文件时段错误
+2.dev_sys.h文件新增int dev_SysUpdate(unsigned int n)函数
+* Description	: 博通平台更新底层系统。文件名如下，调用此函数前，需要先把相应的文件放到/data/目录下。
+	s2bl.bin.signed
+	logo.bin
+	Iuboot.bin
+	uImage.bin
+	rootfs.bin
+
+	注意rootfs较大，更新时需要data分区有足够的剩余空间。
+	调用此函数后，若返回值为0，则为成功。需要重新启动才能完成更新。
+	
+* Input Para	: n: 1为需要更新
+	bit0 s2bl
+	bit1 logo
+	bit2 uboot
+	bit3 kernel
+	bit4 rootfs
+	
+* Output Para	: 
+* Return Value	: 0		OK
+				  -1	相应的文件不存在
+
+
+------------------------------------------------------------------------------------------------
+发布日期: 2014-05-12 
+版本: r264
+发布者:贺盛修
+
+修改点：
+1.修改int dev_SysReadConfig(CONFIG_INFO *ConfigInfo)函数读取硬件配置文件，适用文件系统版本r127或以上
+
+------------------------------------------------------------------------------------------------
+发布日期: 2014-04-25 
+版本: r256
+发布者:贺盛修
+
+修改点：
+1.增加 void *dev_Malloc(unsigned long size)
+       int dev_Free(void* mem_ptr)
+
+------------------------------------------------------------------------------------------------
+发布日期: 2014-04-07 
+版本: r240
+发布者:于永涛
+
+修改点：
+1.摄像头更新至doc
+
+
+------------------------------------------------------------------------------------------------

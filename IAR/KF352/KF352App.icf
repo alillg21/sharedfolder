@@ -1,0 +1,32 @@
+/*###ICF### Section handled by ICF editor, don't touch! ****/
+/*-Editor annotation file-*/
+/* IcfEditorFile="$TOOLKIT_DIR$\config\ide\IcfEditor\cortex_v1_0.xml" */
+/*-Specials-*/
+define symbol __ICFEDIT_intvec_start__ = 0x00080000;
+/*-Memory Regions-*/
+define symbol __ICFEDIT_region_ROM_start__ = 0x00080000;
+define symbol __ICFEDIT_region_ROM_end__   = 0x000FFFFF;
+define symbol __ICFEDIT_region_RAM_start__ = 0x1FFF3000;
+define symbol __ICFEDIT_region_RAM_end__   = 0x20002FFF;
+/**** End of ICF editor section. ###ICF###*/
+
+define exported symbol __VECTOR_TABLE_ROM_START = 0x000B0000;
+define symbol __code_start__ = __ICFEDIT_region_ROM_start__;
+
+define memory mem with size = 4G;
+define region ROM_region   = mem:[from __ICFEDIT_region_ROM_start__   to __ICFEDIT_region_ROM_end__];
+define region RAM_region   = mem:[from __ICFEDIT_region_RAM_start__   to __ICFEDIT_region_RAM_end__];
+
+initialize manually { readwrite };
+initialize manually { section .data};
+initialize manually { section .textrw };
+
+define block CodeRelocate { section .textrw_init };
+define block CodeRelocateRam { section .textrw };
+
+place at address mem:__code_start__ { section .text object startup.o };
+
+place in ROM_region   { readonly, block CodeRelocate};
+
+place in RAM_region   { readwrite, block CodeRelocateRam };
+ 

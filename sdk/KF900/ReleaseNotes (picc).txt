@@ -1,0 +1,107 @@
+非接库（支持A、B、C、M卡）
+
+------------------------------------------------------------------------------------------------
+发布日期: 2013.12.02 16:30
+版本: V0.0.1_20131202
+作者: 卢裕燕
+
+适用机型：KF900，KF605，KF615
+
+1.对V1.0.7版本重新整理。
+
+修改记录：
+（1）：libkf900mifare.a文件里实现了A\B\C\M卡，故把Mifre_lib.c文件屏蔽掉（该文件之前没实现C卡）
+（2）：unsigned char sdk_PiccDetect(unsigned char Mode,unsigned char *CardType,unsigned char *SerialInfo,unsigned char *CID,unsigned char *Other, unsigned char *pRespCode);中的Mode改为0x81|0x82|0x84|0x88分别表示(A、B、C、M卡)，unsigned char *Other参数里面返回A卡的SAK。
+（3）：为深圳通增加了unsigned char sdk_PiccAPDU(unsigned int cid, unsigned char *pucInDatasend, unsigned int len, APDU_RES *pStuApduResp)。
+（4）：为深圳通增加了unsigned char sdk_PiccFelicaCmdExchange(unsigned char* pucInData, unsigned int uiSendLen, unsigned char* pucOutData, unsigned int* puiRecLen, unsigned int TimeOutN )。
+
+------------------------------------------------------------------------------------------------
+发布日期: 2013.01.15 10:30
+版本: V1.0.7
+作者: 吕国鸿
+
+适用机型： KF900 KF605
+
+（1）：关于底层的串口收发函数，用SDK开头的函数。
+
+------------------------------------------------------------------------------------------------
+发布日期: 2013.01.14 11:30
+版本: V1.0.6
+作者: 吕国鸿
+
+适用机型： KF900 KF605
+
+（1）：整理了头文件的包含。把错误码放在《sdk_picc.h》里面。调用库文件的时候，只需要一个头文件即可。
+
+------------------------------------------------------------------------------------------------
+发布日期: 2013.01.10 11:00
+版本: V1.0.5
+作者: 吕国鸿
+
+适用机型： KF900 KF605
+
+（1）：实现了对M卡操作的函数 sdk_M1Operate
+
+------------------------------------------------------------------------------------------------
+发布日期: 2013.01.06 16:00
+版本: V1.0.4
+作者: 吕国鸿
+
+适用机型： KF900 KF605
+
+（1）：修改一个bug，在卡片固有号的时候，如果返回第一个字节是长度，那么需要赋值 长度+1 因为长度占用一个字节。
+	memcpy(SerialInfo, &sReceBuf[2], sReceBuf[2]+1); //序列号
+
+------------------------------------------------------------------------------------------------
+发布日期: 2013.01.05 09:00
+版本: V1.0.3
+作者: 吕国鸿
+
+适用机型： KF900 KF605
+
+（1）：认证卡片的函数，输入的序列号不带长度位，直接传入四位序列号。sdk_M1Authority( unsigned char ucType,unsigned char ucBlkNo, unsigned char *pucPwd, unsigned char *pucSerialNo,unsigned char *pRespCode)。
+
+（2）：uchar KF311_M1_picc_detect(uchar ucMode,uchar *CardType,uchar *SerialInfo,uchar *CID,uchar *Other, unsigned char *pRespCode)
+	传出的serialinfo和other都是第一位为长度位。
+
+------------------------------------------------------------------------------------------------
+发布日期: 2012.12.12 09:00
+版本: V1.0.2
+作者: 吕国鸿
+
+适用机型： KF900 KF605
+
+（1）：更新了部分bug：序号的从 0 - 0xf0 就开始循环，不会定期出现序号校验错误；
+（2）：同步了 V2.0.3 的修改。
+
+------------------------------------------------------------------------------------------------
+发布日期: 2012.11.12 15:00
+版本: V1.0.1
+作者: 吕国鸿
+
+适用机型： KF900 KF605
+
+（1）：统一内置和外置的参数含义。函数返回值表示命令是否已经下发，响应码表示该指令指定的状态。比如：
+	unsigned char sdk_PiccOpen(unsigned char *pRespCode)
+	函数返回值表示命令是否成功下发到模块，*pRespCode 表示命令执行的状态
+
+------------------------------------------------------------------------------------------------
+发布日期: 2012.10.31 17:00
+版本: V1.0.0
+作者: 吕国鸿
+
+适用机型： KF900 KF605
+
+（1）：unsigned char sdk_PiccDetect(unsigned char Mode,unsigned char *CardType,unsigned char *SerialInfo,unsigned char *CID,unsigned char *Other, unsigned char *pRespCode);
+这个函数，SerialInfo 第一位是长度，后面是内容。
+
+（2）：添加了： void sdk_PiccLibVersion(unsigned char buf[]);  可查询当前库文件的版本。目前版本是 V1.0.0.
+
+------------------------------------------------------------------------------------------------
+发布日期: 2012.06.13 15:00
+版本: 没有
+作者: 吕国鸿
+
+适用机型： KF900 KF605
+
+创建库文件

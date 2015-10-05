@@ -1,0 +1,17 @@
+arm-brcm-linux-gnueabi-gcc -Os -s -Wall -DKF_DEBUG -DKF951=7 -DPOS_TYPE=KF951 -I../sdk/KF951/BaseSdk-inc -I../sdk/KF951/PubSdk-inc -I../inc -I../private-libs/inc -o ../src/card.o -c ../src/card.c
+arm-brcm-linux-gnueabi-gcc -Os -s -Wall -DKF_DEBUG -DKF951=7 -DPOS_TYPE=KF951 -I../sdk/KF951/BaseSdk-inc -I../sdk/KF951/PubSdk-inc -I../inc -I../private-libs/inc -o ../src/comm.o -c ../src/comm.c
+arm-brcm-linux-gnueabi-gcc -Os -s -Wall -DKF_DEBUG -DKF951=7 -DPOS_TYPE=KF951 -I../sdk/KF951/BaseSdk-inc -I../sdk/KF951/PubSdk-inc -I../inc -I../private-libs/inc -o ../src/finger.o -c ../src/finger.c
+arm-brcm-linux-gnueabi-gcc -Os -s -Wall -DKF_DEBUG -DKF951=7 -DPOS_TYPE=KF951 -I../sdk/KF951/BaseSdk-inc -I../sdk/KF951/PubSdk-inc -I../inc -I../private-libs/inc -o ../src/key.o -c ../src/key.c
+arm-brcm-linux-gnueabi-gcc -Os -s -Wall -DKF_DEBUG -DKF951=7 -DPOS_TYPE=KF951 -I../sdk/KF951/BaseSdk-inc -I../sdk/KF951/PubSdk-inc -I../inc -I../private-libs/inc -o ../src/lcd.o -c ../src/lcd.c
+arm-brcm-linux-gnueabi-gcc -Os -s -Wall -DKF_DEBUG -DKF951=7 -DPOS_TYPE=KF951 -I../sdk/KF951/BaseSdk-inc -I../sdk/KF951/PubSdk-inc -I../inc -I../private-libs/inc -o ../src/main.o -c ../src/main.c
+arm-brcm-linux-gnueabi-gcc -Os -s -Wall -DKF_DEBUG -DKF951=7 -DPOS_TYPE=KF951 -I../sdk/KF951/BaseSdk-inc -I../sdk/KF951/PubSdk-inc -I../inc -I../private-libs/inc -o ../src/other.o -c ../src/other.c
+arm-brcm-linux-gnueabi-gcc -Os -s -Wall -DKF_DEBUG -DKF951=7 -DPOS_TYPE=KF951 -I../sdk/KF951/BaseSdk-inc -I../sdk/KF951/PubSdk-inc -I../inc -I../private-libs/inc -o ../src/perso.o -c ../src/perso.c
+arm-brcm-linux-gnueabi-gcc -Os -s -Wall -DKF_DEBUG -DKF951=7 -DPOS_TYPE=KF951 -I../sdk/KF951/BaseSdk-inc -I../sdk/KF951/PubSdk-inc -I../inc -I../private-libs/inc -o ../src/pinpad.o -c ../src/pinpad.c
+arm-brcm-linux-gnueabi-gcc -Os -s -Wall -DKF_DEBUG -DKF951=7 -DPOS_TYPE=KF951 -I../sdk/KF951/BaseSdk-inc -I../sdk/KF951/PubSdk-inc -I../inc -I../private-libs/inc -o ../src/ppp.o -c ../src/ppp.c
+arm-brcm-linux-gnueabi-gcc -Os -s -Wall -DKF_DEBUG -DKF951=7 -DPOS_TYPE=KF951 -I../sdk/KF951/BaseSdk-inc -I../sdk/KF951/PubSdk-inc -I../inc -I../private-libs/inc -o ../src/print.o -c ../src/print.c
+arm-brcm-linux-gnueabi-gcc -Os -s -Wall -DKF_DEBUG -DKF951=7 -DPOS_TYPE=KF951 -I../sdk/KF951/BaseSdk-inc -I../sdk/KF951/PubSdk-inc -I../inc -I../private-libs/inc -o ../src/Registrasi.o -c ../src/Registrasi.c
+arm-brcm-linux-gnueabi-gcc -Os -s -Wall -DKF_DEBUG -DKF951=7 -DPOS_TYPE=KF951 -I../sdk/KF951/BaseSdk-inc -I../sdk/KF951/PubSdk-inc -I../inc -I../private-libs/inc -o ../src/scard.o -c ../src/scard.c
+arm-brcm-linux-gnueabi-gcc -Os -s -Wall -DKF_DEBUG -DKF951=7 -DPOS_TYPE=KF951 -I../sdk/KF951/BaseSdk-inc -I../sdk/KF951/PubSdk-inc -I../inc -I../private-libs/inc -o ../src/tool.o -c ../src/tool.c
+arm-brcm-linux-gnueabi-gcc -Os -s -Wall -DKF_DEBUG -DKF951=7 -DPOS_TYPE=KF951 -I../sdk/KF951/BaseSdk-inc -I../sdk/KF951/PubSdk-inc -I../inc -I../private-libs/inc -o ../src/Transaksi.o -c ../src/Transaksi.c
+arm-brcm-linux-gnueabi-gcc -Os -s -Wall -DKF_DEBUG -DKF951=7 -DPOS_TYPE=KF951 -L../sdk/KF951/  -lBaseSdk  -ldev  -lEmvCore  -ljpeg  -lopenobex  -lPubSdk  -ldl -lrt -lpthread -Wl,-rpath,/data/lib -o KF951-d ../src/card.o ../src/comm.o ../src/finger.o ../src/key.o ../src/lcd.o ../src/main.o ../src/other.o ../src/perso.o ../src/pinpad.o ../src/ppp.o ../src/print.o ../src/Registrasi.o ../src/scard.o ../src/tool.o ../src/Transaksi.o  
+cp KF951-d cncup_app

@@ -1,0 +1,45 @@
+# makefile 包含文件
+# 编译POS应用程序
+# 张文晖 2013/12/06; 卢永宁修改 2014/05/28
+# 版本 V1.1
+
+# APP 头文件 inc
+APP_INC += -I$(POSDIR)/inc
+
+#用户自定义库头文件
+APP_LIBINC += -I$(POSDIR)/private-libs/inc
+
+#用户自定义库链接
+#-L库 个别没有库，用宏变量控制
+#APP_SUPPORT_LIB = true
+ifdef APP_SUPPORT_LIB
+
+APP_DLLPTAH += -L$(POSDIR)/private-libs/lib/
+
+APP_DLL += $(notdir $(wildcard $(POSDIR)/private-libs/lib/*/*/*.so))
+APP_DLL += $(notdir $(wildcard $(POSDIR)/private-libs/lib/*/*.so))
+APP_DLL += $(notdir $(wildcard $(POSDIR)/private-libs/lib/*.so))
+
+# 动态库
+APP_DLL2 += $(patsubst lib%.so, -l%, $(APP_DLL))
+APP_LIBS += $(APP_DLLPTAH) $(APP_DLL2)
+
+# 静态库
+APP_OBJS += $(wildcard $(POSDIR)/private-libs/lib/*.a)
+endif
+
+# APP 源文件 .c
+ALLSRC += $(wildcard $(POSDIR)/src/*/*/*.c)
+ALLSRC += $(wildcard $(POSDIR)/src/*/*.c)
+ALLSRC += $(wildcard $(POSDIR)/src/*.c)
+
+#APP 源文件 .cpp
+ALLSRCCPP += $(wildcard $(POSDIR)/src/*/*/*.cpp)
+ALLSRCCPP += $(wildcard $(POSDIR)/src/*/*.cpp)
+ALLSRCCPP += $(wildcard $(POSDIR)/src/*.cpp)
+
+# 目标文件
+OBJS = $(patsubst %.c, %.o, $(ALLSRC)) 
+OBJSCPP += $(patsubst %.cpp, %.o, $(ALLSRCCPP))
+
+APP_TARGET = cncup_app

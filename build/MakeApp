@@ -1,0 +1,171 @@
+#/bin/sh
+
+####################################################################
+#echo  '^[[40;31m显示内容'
+#前的数字是背景色，后面为前景色
+#背景色：
+#       40黑41红42绿43黄44青45蓝46青47白
+#前景色：
+#       30黑31红32绿33黄34蓝35紫36青37白
+
+# 张文晖 2013/12/06; 卢永宁修改 2014/05/28
+# 长城开发 版本 V1.1
+####################################################################
+
+export debugflag=debug
+export MACHINEMODE=KF951
+export OUT_TARGET=exe
+export Plat=BRCM
+
+# 设置SDK库路径 （统一编译环境）
+export LIBHEAD=../sdk
+export FILENAME=./Makefile
+#export LIBHEAD=/home/team_share/Sdk_Lib/sdk
+#export FILENAME=$LIBHEAD/Makefile
+
+# 清除.o文件
+function subClear()
+{
+	make -f $FILENAME clean #> /dev/null	
+	sync
+	echo -e "\033[40;32m"
+	echo MAKE CLEAN
+	echo -e "\033[40;32m"
+	echo CLEAR DONE
+	echo -e "\033[40;37m"
+	exit 0
+}
+
+#选择机型
+function subSum1()
+{
+ 	if [ $1 == KF615 -o  $1 == KF951 -o  $1 == KF351 -o $1 == KF605 -o  $1 == KF900  ]; then  
+		MACHINEMODE=$1
+		if [ $1 == KF615 -o  $1 == KF951 -o  $1 == KF351  ]; then  
+		Plat=BRCM
+		else
+		Plat=GLIBC
+		fi
+	elif [ $1 == -c -o $1 == -C ]; then
+		subClear
+		exit
+	else
+		echo -e "\033[40;32m"
+		echo "Usage: ./MakeApp [MachineMode]"
+		echo "       MachineMode: KF605, KF615, KF900, KF951..."
+		echo "compile: ./MakeApp KF951"
+		echo "clean:   ./MakeApp -c"
+		echo -e "\033[40;37m" 	
+		exit 1
+	fi
+}
+
+# 选是否为debug版本
+function subSum2()
+{
+	if  [ $1 == debug -o  $1 == release ]; then
+		  debugflag=$1
+	else
+		echo -e "\033[40;32m"
+		echo  you must in put the 3  parameter debug or release
+		echo -e "\033[40;37m"
+		exit 1
+	fi
+}
+
+# 选目标是否为dll 还是exe
+function subSum3()
+{
+	if [ $1 == exe -o $1 == dll -o $1 == slib ]; then
+		  OUT_TARGET=$1
+	else
+		echo -e "\033[40;32m"
+		echo you must in put the third  parameter target exe or dll or slib
+		echo -e "\033[40;37m"
+		exit 1
+	fi
+}
+
+if [ $# == 0 ]; then	
+  	echo -e "\033[40;33m"
+		echo warming  your had not inputed compile AppFileDir
+   	echo useing the deflaut AppFileDir $AppFileDir 
+		echo 
+		echo MakeApp  [MACHINEMODEL] [MODE] [FORMAT]
+		echo
+		echo	EXAMPLE:
+		echo
+		echo	./MakeApp  KF951 debug exe
+		echo	./MakeApp  KF951 release exe
+		echo	./MakeApp  KF900 debug exe
+		echo	./MakeApp  KF605 release exe
+		echo	./MakeApp  KF615 debug dll
+		echo	./MakeApp  KF951 release dll
+		echo	./MakeApp  KF605 debug slib
+		echo	./MakeApp  KF900 release slib
+		echo	./MakeApp  -c
+		echo	./MakeApp  -C
+		echo  
+	  echo -e "\033[40;37m"
+	  exit 1
+fi
+
+
+if [ $# == 1 ]; then	
+	subSum1 $1
+fi
+
+
+if [ $# == 2 ]; then
+	subSum1 $1
+	subSum2 $2
+fi
+
+
+if [ $# == 3 ]; then
+	subSum1 $1
+	subSum2 $2
+	subSum3 $3
+fi
+
+
+#提示用户编译的是什么目标文件
+echo -e "\033[40;33m"
+echo Making  $MACHINEMODE $debugflag $OUT_TARGET 
+echo -e "\033[40;37m"
+
+
+#如果是release 版本程序 那就首先清除掉 再重新编译
+if  [ $debugflag ==  release ]; then
+		make -f $FILENAME clean > /dev/null	
+		sync
+		echo -e "\033[40;32m"
+		echo MAKE CLEAN
+		echo -e "\033[40;32m"
+		echo CLEAR DONE.
+		echo -e "\033[40;37m"
+fi
+
+#echo "LIB_HEAD: " $LIBHEAD
+#echo "FILE_NAME:" $FILENAME
+#make -f $FILENAME > /dev/null
+make -f $FILENAME > compile.txt
+
+temp_var=$?
+if [ $temp_var != 0 ]; then
+	echo -e "\033[40;31m"
+	echo "MAKE ERROR" 
+	echo -e "\033[40;37m"
+
+	echo -e "\033[40;33m"
+	echo the making error is $MACHINEMODE $debugflag $OUT_TARGET 
+	echo -e "\033[40;37m"
+
+	exit 1
+else
+	echo -e "\033[40;32m"
+	echo MAKE DONE.
+	echo -e "\033[40;37m"
+	exit 0
+fi
+
